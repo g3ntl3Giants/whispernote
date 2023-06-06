@@ -1,0 +1,8 @@
+# requirements.txt
+
+werkzeug
+openai
+python-dotenv
+tqdm
+tiktoken
+nltk
