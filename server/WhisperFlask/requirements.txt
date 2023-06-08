@@ -1,0 +1,9 @@
+# requirements.txt
+
+flask
+werkzeug
+openai
+python-dotenv
+psycopg2-binary
+SQLAlchemy
+flask-cors

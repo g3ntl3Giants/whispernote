@@ -1,5 +1,7 @@
 app
 RTNWhisper
 react-native-whisper
+server/WhisperAzureFunction
+server/.venv
 .env
 .env.*
