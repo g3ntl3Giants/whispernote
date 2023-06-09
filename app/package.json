@@ -6,17 +6,19 @@
     "android": "npx react-native run-android",
     "android:stacktrace": "cd android && ./gradlew app:installDebug -PreactNativeDevServerPort=8081 --stacktrace && cd ../",
     "android:debug": "cd android && ./gradlew app:installDebug -PreactNativeDevServerPort=8081 --debug && cd ../",
+    "apple-pod-install": "cd ios && pod install && cd ../macos && pod install && cd ../",
     "ios": "npx react-native run-ios",
     "macos": "npx react-native run-macos",
-    "apple-pod-install": "cd ios && pod install && cd ../macos && pod install && cd ../",
     "lint": "eslint .",
     "start": "APP_ENV=development npx react-native start --reset-cache",
     "start:test": "APP_ENV=test npx react-native start --reset-cache",
     "test": "jest",
+    "new-branch-refresh": "yarn nuke:node && yarn nuke:ios && yarn nuke:android",
     "nuke:node": "rm -rf node_modules && rm -rf package-lock.json yarn.lock && yarn install",
     "nuke:ios": "cd ios && rm -rf Pods && rm -rf Podfile.lock && rm -rf build && rm -rf ~/Library/Developer/Xcode/DerivedData/WhisperNote-* && RCT_NEW_ARCH_ENABLED=1 bundle exec pod install && cd ../",
     "nuke:android": "cd android && ./gradlew clean && cd ../",
-    "nuke:macos": "cd macos && rm -rf Pods && rm -rf Podfile.lock && rm -rf build && rm -rf ~/Library/Developer/Xcode/DerivedData/WhisperNote-* && pod install && cd ../"
+    "nuke:macos": "cd macos && rm -rf Pods && rm -rf Podfile.lock && rm -rf build && rm -rf ~/Library/Developer/Xcode/DerivedData/WhisperNote-* && pod install && cd ../",
+    "open:xcode:ios": "cd ios && xed . && cd ../"
   },
   "dependencies": {
     "@react-native/gradle-plugin": "^0.72.10",
@@ -33,7 +35,6 @@
     "react-native-network-logger": "^1.15.0",
     "react-native-safe-area-context": "^4.5.3",
     "react-native-screens": "^3.20.0",
-    "react-native-svg": "^13.9.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

@@ -2,6 +2,7 @@
 RTNWhisper
 react-native-whisper
 server/WhisperAzureFunction
+server/WhisperFlask/__pycache__
 server/.venv
 .env
 .env.*
