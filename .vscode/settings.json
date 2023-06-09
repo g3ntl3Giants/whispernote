@@ -92,5 +92,6 @@
     "vector": "cpp",
     "algorithm": "cpp",
     "*.ipp": "cpp"
-  }
+  },
+  "cSpell.words": ["whispernote"]
 }
