@@ -31,24 +31,6 @@ def format_transcription(transcription):
 
     return formatted_transcription
 
-
-def format_section(section):
-    # This function sends a section of sentences to the GPT-3.5-turbo model for formatting
-    section_text = ' '.join(section)
-    messages = [
-        {"role": "system", "content": role},
-        {"role": "user", "content": f"Format the following raw transcription into clear, readable text: {section_text}"},
-    ]
-
-    response = openai.ChatCompletion.create(
-        model="gpt-3.5-turbo",
-        messages=messages,
-        temperature=0.0
-    )
-
-    return response['choices'][0]['message']['content'].strip() +'\n\n'
-
-
 def transcribe_audio(audio_file_path):
     # This function will send the audio file to Whisper ASR API and return the transcription
     with open(audio_file_path, 'rb') as audio_file:
