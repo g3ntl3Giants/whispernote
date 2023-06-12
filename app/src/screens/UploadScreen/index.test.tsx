@@ -1,5 +1,5 @@
 /**
- * @file UploadScreen/index.test.tsx.
+ * @file @whispernote/screens/UploadScreen/index.test.tsx.
  */
 import React from 'react';
 import {render, fireEvent, waitFor} from '@testing-library/react-native';
@@ -51,6 +51,93 @@ describe('UploadScreen', () => {
 
     await waitFor(() => {
       expect(getByLabelText('Open Text')).toBeTruthy();
+    });
+  });
+
+  it('renders the ActivityIndicator when loading is true', async () => {
+    DocumentPicker.pick.mockResolvedValueOnce({
+      uri: 'file://test',
+      type: 'audio/*',
+      name: 'test',
+    });
+
+    const {getByLabelText, getByTestId} = render(<UploadScreen />);
+    fireEvent.press(getByLabelText('Upload Audio'));
+
+    await waitFor(() => {
+      expect(getByTestId('activity-indicator')).toBeTruthy();
+    });
+  });
+
+  it('disables the Upload Audio button when loading is true', async () => {
+    DocumentPicker.pick.mockResolvedValueOnce({
+      uri: 'file://test',
+      type: 'audio/*',
+      name: 'test',
+    });
+
+    const {getByLabelText} = render(<UploadScreen />);
+    fireEvent.press(getByLabelText('Upload Audio'));
+
+    await waitFor(() => {
+      expect(getByLabelText('Upload Audio')).toBeDisabled();
+    });
+  });
+
+  it('renders the Open Transcription button when allResults is not empty', async () => {
+    DocumentPicker.pick.mockResolvedValueOnce({
+      uri: 'file://test',
+      type: 'audio/*',
+      name: 'test',
+    });
+
+    axios.post.mockResolvedValueOnce({
+      data: [
+        {transcription: 'Test transcription 1'},
+        {transcription: 'Test transcription 2'},
+      ],
+    });
+
+    const {getByLabelText} = render(<UploadScreen />);
+    fireEvent.press(getByLabelText('Upload Audio'));
+
+    await waitFor(() => {
+      expect(getByLabelText('Open Transcription')).toBeTruthy();
+    });
+  });
+
+  it('navigates through TranscriptionModal results correctly', async () => {
+    DocumentPicker.pick.mockResolvedValueOnce({
+      uri: 'file://test',
+      type: 'audio/*',
+      name: 'test',
+    });
+
+    axios.post.mockResolvedValueOnce({
+      data: [
+        {transcription: 'Test transcription 1'},
+        {transcription: 'Test transcription 2'},
+      ],
+    });
+
+    const {getByLabelText, getByTestId} = render(<UploadScreen />);
+    fireEvent.press(getByLabelText('Upload Audio'));
+
+    await waitFor(() => {
+      fireEvent.press(getByLabelText('Open Transcription'));
+      expect(getByTestId('transcription-modal-text').textContent).toBe(
+        'Test transcription 1',
+      );
+
+      fireEvent.press(getByTestId('next-button'));
+      expect(getByTestId('transcription-modal-text').textContent).toBe(
+        'Test transcription 2',
+      );
+
+      fireEvent.press(getByTestId('prev-button'));
+      expect(getByTestId('transcription-modal-text').textContent).toBe(
+        'Test transcription 1',
+      );
     });
   });
 });

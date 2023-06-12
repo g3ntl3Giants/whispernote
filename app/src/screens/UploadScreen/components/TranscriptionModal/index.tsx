@@ -14,6 +14,7 @@ import {
 // import Clipboard from '@react-native-community/clipboard';
 
 import {Button} from '@whispernote/appComponents';
+
 // Update TranscriptionModalProps
 interface TranscriptionModalProps {
   result: any;
