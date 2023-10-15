@@ -6,3 +6,5 @@ server/.venv
 app/coverage
 .env
 .env.*
+/app
+/server
