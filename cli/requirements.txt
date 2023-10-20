@@ -6,3 +6,5 @@ python-dotenv
 tqdm
 tiktoken
 nltk
+moviepy
+pydub
