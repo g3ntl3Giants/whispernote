@@ -50,7 +50,7 @@ def transcribe_audio(audio_file_path):
         # Load the audio file
         print('Load the audio file')
         audio = AudioSegment.from_file(audio_file_path, format="mp3")
-        
+
         # Split audio on silence
         print('Split audio on silence')
         chunks = split_on_silence(
@@ -59,25 +59,26 @@ def transcribe_audio(audio_file_path):
             silence_thresh=-40,    # consider it silent if quieter than -40 dBFS
             keep_silence=500,      # keep 500ms of leading/trailing silence
         )
-        
+
         # Fallback: If silence splitting creates too large chunks, split audio into fixed-size chunks
         chunk_length = 10000  # 10 seconds in ms
         if any(len(chunk) > chunk_length for chunk in chunks):
             chunks = [audio[i:i+chunk_length] for i in range(0, len(audio), chunk_length)]
-        
+
         # Transcribe each chunk and combine the results
         for i, chunk in enumerate(chunks):
             chunk_path = f"chunk_{i}.mp3"
             chunk.export(chunk_path, format="mp3")
-            
+
             with open(chunk_path, 'rb') as audio_file:
                 chunk_transcription = openai.Audio.transcribe("whisper-1", audio_file)
                 transcription_total += chunk_transcription.text
-                formatted_transcription_total += format_transcription(chunk_transcription.text)
 
             # Cleanup temporary chunk
             os.remove(chunk_path)
             print(f"Processed and removed chunk: {chunk_path}")
+
+        formatted_transcription_total += format_transcription(transcription_total)
 
         print(f"Completed transcription for {audio_file_path}")
         return {'raw': transcription_total, 'formatted_transcription': formatted_transcription_total}
