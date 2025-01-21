@@ -91,6 +91,12 @@ Python environment with `pip` (or your favorite dependency manager).
 
 ## Installation and Setup
 
+### Clone this repository (or your fork):
+   ```bash
+   git clone https://github.com/g3ntl3Giants/whispernote.git
+   cd whispernote
+   ```
+
 ### Setting Environment Variables
 Create a `.env` file (or otherwise set environment variables) that includes your OpenAI key:
 
