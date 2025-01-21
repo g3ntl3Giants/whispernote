@@ -14,17 +14,18 @@ WhisperNote is a multi-part application designed to transcribe and process audio
 2. [Project Structure](#project-structure)
 3. [Prerequisites](#prerequisites)
 4. [Installation and Setup](#installation-and-setup)
+   - [Clone this repository](#clone-this-repository)
    - [Setting Environment Variables](#setting-environment-variables)
    - [React Native App](#react-native-app)
    - [CLI](#cli)
    - [Flask Server](#flask-server)
-5. [Usage](#usage)
+6. [Usage](#usage)
    - [Running the React Native App](#running-the-react-native-app)
    - [Using the CLI for Transcription](#using-the-cli-for-transcription)
    - [Running the Flask Server](#running-the-flask-server)
-6. [Testing](#testing)
-7. [Contributing](#contributing)
-8. [License](#license)
+7. [Testing](#testing)
+8. [Contributing](#contributing)
+9. [License](#license)
 
 ## Features
 
